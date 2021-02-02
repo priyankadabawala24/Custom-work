@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label for="title">Title</label>
+  <input type="text" name="title" class="form-control" value="<%= @post.title if @post.present? %>">
+</div>
+<% unless @post && @post.media %>
+  <div class="form-group">
+    <label for="media">Post Media</label>
+    <input type="file" name="media" class="form-control media-upload" value="<%= @post.title if @post.present? %>">
+  </div>
+<% end %>
+<div class="form-group">
+  <label for="author">Post Author</label>
+  <input type="text" name="author" class="form-control" value="<%= @post.author if @post.present? %>"/>
+</div>
+<div class="form-group">
+  <label for="body">Post Content</label>
+  <textarea name="body" class="form-control" cols="30" rows="10"><%= @post.body if @post.present? %></textarea>
+</div>
+<div class="from-group">
+  <div><input type="submit" value="Create Post"></div>
+</div>
+

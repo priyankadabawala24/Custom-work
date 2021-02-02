@@ -1,0 +1,45 @@
+<!-- app/views/home/index.html.erb -->
+<%= link_to destroy_user_session_path, method: :delete do %>Log out<% end %>
+<div class="wrapper">
+  <div class="title">
+    <h1>Live blog with Ruby</h1>
+    <p>New posts will be displayed in realtime</p>
+  </div>
+  <div class="posts" id="post_section">
+  	<a href="<%= post_create_path %>">Create post</a>
+    <% @posts.each do |post| %>
+	    <div class="post-card">
+	      <a href="/post/delete/<%= post.id %>">Delete</a>
+	      <a href="/post/edit/<%= post.id %>">Edit</a>
+	      <img class="image" src="<%= post.media %>">
+	      <div class="title">
+	        <h2>
+	          <%= post.title %>
+	        </h2>
+	      </div>
+	      <div class="body-trunc">
+	        <p>
+	          <%= post.body %>
+	        </p>
+	      </div>
+	      <hr>
+	      <form method="POST" action="/post_comment/<%= post.id %>" class="post-form">
+				  <%= token_tag %>
+				 	<input type="text" name="comment_text">
+				 	<button type="submit">post</button>
+				</form>
+	      <% if post.comments.present? %>
+		      <% post.comments.each do |comment| %>
+		      	<form method="POST" action="/comment_edit/<%= comment.id %>" class="post-form">
+		      		<%= token_tag %>
+		      		<input type="text" name="comment_text" value="<%= comment.comment_text %>">
+		      		<button type="submit">edit</button>
+		      		<a href="/comment_delete/<%= comment.id %>">delete</a>
+		      	</form>
+		      	<br>
+		      <% end %>
+		  	<% end %>
+	    </div>
+    <% end %>
+  </div>
+</div>

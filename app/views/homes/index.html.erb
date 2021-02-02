@@ -1,0 +1,12 @@
+<% if current_user.nil? %>
+	<%= link_to new_user_session_path, class: 'login-button' do %>Sign in<% end %>
+	<%= link_to new_user_registration_path, class: 'login-button' do %>Sign up<% end %>
+<% else %>
+	<!-- <%#= link_to app_dashboard_index_path, class: 'login-button' do %>Go to App<%# end %> -->
+	<% if current_user.superadmin_role? %>
+		<p>Visible only for superadmins and supervisors! </p>
+	<% elsif current_user.user_role? %>
+		<p>Visible only for users! </p>
+	<% end %>
+	<%= link_to destroy_user_session_path, method: :delete do %>Log out<% end %>
+<% end %>
